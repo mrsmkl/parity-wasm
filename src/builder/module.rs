@@ -253,7 +253,7 @@ impl<F> ModuleBuilder<F> where F: Invoke<elements::Module> {
 		).collect()
 	}
 
-	/// Push import entry to module. Not that it does not update calling indices in
+	/// Push import entry to module. Note that it does not update calling indices in
 	/// function bodies.
 	pub fn push_import(&mut self, import: elements::ImportEntry) -> u32 {
 		self.module.import.entries_mut().push(import);
@@ -323,6 +323,30 @@ impl<F> ModuleBuilder<F> where F: Invoke<elements::Module> {
 	/// With global variable
 	pub fn with_global(mut self, global: elements::GlobalEntry) -> Self {
 		self.module.global.entries_mut().push(global);
+		self
+	}
+
+	/// With type
+	pub fn with_type(mut self, global: elements::Type) -> Self {
+		self.module.types.types_mut().push(global);
+		self
+	}
+
+	/// With func body
+	pub fn with_func_body(mut self, global: elements::FuncBody) -> Self {
+		self.module.code.bodies_mut().push(global);
+		self
+	}
+
+	/// With func body
+	pub fn with_func_sig(mut self, global: elements::Func) -> Self {
+		self.module.functions.entries_mut().push(global);
+		self
+	}
+
+	/// With data
+	pub fn with_data(mut self, global: elements::DataSegment) -> Self {
+		self.module.data.entries_mut().push(global);
 		self
 	}
 
